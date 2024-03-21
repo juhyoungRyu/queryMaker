@@ -1,9 +1,13 @@
 import { prompt } from "prompts";
-import SheetUtil from "./util/sheetUtil";
-import LogUtil from "./util/logUtil";
 
-const sheetUtil = new SheetUtil();
-const logger = new LogUtil("main");
+// util
+import LogUtil from "./util/LogUtil";
+import CliUtil from "./util/CliUil";
+import SheetUtil from "./util/SheetUtil";
+
+const Logger = new LogUtil("main");
+const Cli = new CliUtil();
+const Sheet = new SheetUtil();
 
 // cli 방식으로 이후 기능 추가
 /* makeQuery
@@ -11,32 +15,30 @@ const logger = new LogUtil("main");
  */
 
 async function makeQuery() {
-  const { filePath } = await prompt({
-    type: "text",
-    name: "filePath",
-    message: "Please input the file path of your table blueprint (Absolute Path) : ",
-  });
+  const result = await Cli.question(
+    "text",
+    "Please input the file path of your table blueprint (Absolute Path) : "
+  );
 
-  if (!filePath) {
-    logger.log("error", `The file does not exist in that path.`);
+  if (!result.success || (result.success && result.path === "")) {
+    Logger.log("error", `The file does not exist in that path.`);
     return;
   }
 
-  logger.log("info", `File Path : ${filePath}`);
-  console.log("---------------------------------------------------");
-  sheetUtil.setSheetData(filePath);
+  Logger.log("info", `File Path : ${result.path}`);
+  Logger.log("line");
+  Sheet.setSheetData(result.path);
 
-  const arrTableName = Object.keys(sheetUtil.getSheetData());
-  const objSheet = sheetUtil.getSheetData();
+  const arrTableName = Object.keys(Sheet.getSheetData());
+  const objSheet = Sheet.getSheetData();
 
   for (let i = 0; i < arrTableName.length; i++) {
     const arrSheetData = objSheet[arrTableName[i]];
 
     arrSheetData.forEach((row) => {
-      logger.log("info", JSON.stringify(row));
+      Logger.log("info", JSON.stringify(row));
     });
   }
 }
 
-// C:\Users\sia\Desktop\table_generate\test/1.xlsx
 makeQuery();
