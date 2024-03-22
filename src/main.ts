@@ -1,9 +1,10 @@
-import { prompt } from "prompts";
-
 // util
 import LogUtil from "./util/LogUtil";
 import CliUtil from "./util/CliUil";
 import SheetUtil from "./util/SheetUtil";
+
+// type
+import { TableInfo } from "./interface/table";
 
 const Logger = new LogUtil("main");
 const Cli = new CliUtil();
@@ -29,16 +30,12 @@ async function makeQuery() {
   Logger.log("line");
   Sheet.setSheetData(result.path);
 
-  const arrTableName = Object.keys(Sheet.getSheetData());
+  // sheet 데이터
   const objSheet = Sheet.getSheetData();
-
-  for (let i = 0; i < arrTableName.length; i++) {
-    const arrSheetData = objSheet[arrTableName[i]];
-
-    arrSheetData.forEach((row) => {
-      Logger.log("info", JSON.stringify(row));
-    });
-  }
+  // 테이블명 배열
+  const arrTableName = Object.keys(objSheet);
 }
+
+async function createTableQuery(tableName: string, tableData: TableInfo) {}
 
 makeQuery();
