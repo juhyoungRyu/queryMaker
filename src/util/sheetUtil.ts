@@ -1,6 +1,6 @@
 import Base from "../base";
 import sheetJs, { WorkSheet } from "xlsx";
-import logUtil from "../util/logUtil";
+import logUtil from "./LogUtil";
 
 import { type tableSheet } from "../interface/tableSheet";
 
@@ -8,16 +8,16 @@ interface objSheetData {
   [sheetName: string]: tableSheet[];
 }
 
-export default class sheetUtil extends Base {
+export default class Sheet extends Base {
   private objSheetData: objSheetData;
   private logger: logUtil;
 
   constructor() {
     super();
     this.objSheetData = {};
-    this.logger = new logUtil("sheetUtil");
+    this.logger = new logUtil("SheetUtil");
 
-    this.logger.log("info", "get sheetUtil");
+    this.logger.log("info", "get SheetUtil");
   }
 
   private clearSheetData(): void {
