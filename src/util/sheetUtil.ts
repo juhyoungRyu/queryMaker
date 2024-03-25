@@ -2,9 +2,10 @@ import Base from "../base";
 import sheetJs, { WorkSheet } from "xlsx";
 import logUtil from "../util/logUtil";
 
-type SheetData = Array<Object>;
+import { type tableSheet } from "../interface/tableSheet";
+
 interface objSheetData {
-  [sheetName: string]: SheetData[];
+  [sheetName: string]: tableSheet[];
 }
 
 export default class sheetUtil extends Base {

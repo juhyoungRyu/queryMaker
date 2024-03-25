@@ -7,7 +7,7 @@ export default class Logger extends Base {
 
   constructor(caller: string) {
     super();
-    this.template = `%timestamp% [%type%][${caller}] %message%`;
+    this.template = `%timestamp% [${caller}][%type%] %message%`;
   }
 
   private getTime(): string {
