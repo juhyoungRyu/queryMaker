@@ -34,7 +34,19 @@ Router.post("/createTable", (ctx) => {
     console.log(await QueryMaker.createTableQuery(tableName, body[tableName]));
   });
 });
+// Post
+Router.post("/createSelectQuery", (ctx) => {
+  const body = ctx.request?.body as undefined | { [tableName: string]: TableInfo[] };
 
+  if (body === undefined) {
+    ctx.response.status = 400;
+    ctx.response.message = "Data Not Found";
+
+    return;
+  }
+  
+  const result = QueryMaker.selectQeury(ctx)
+});
 // Server Module
 Server.use(Koa_CORS());
 Server.use(Koa_BodyParser());

@@ -17,10 +17,24 @@ export default class Generater extends Base {
 
   // 필수 값 확인 user 정보, query type, table명, column명
   public async selectQeury(event: any) {
-    // select query에 필요한 값에 대해서 확인
-    // 쿼리 생성 확인
-    // gpt 검증 확인 (유료)
-    // example => 생성 후 return시, 파일 생성 후 전달 화면에 뿌려주기
+    const body = event.body 
+
+    if(this._.isEmpty(body.table) || body.hasOwnProperty(body,'table')){ // table name 
+        body.response.status = 401;
+        body.response.message = "table";
+        return;
+    }
+
+    if(this._.isEmpty(body.column)|| body.hasOwnProperty(body,'column')){ // type 
+        body.response.status = 401;
+        body.response.message = "column";
+        return;
+    }
+    // SELECT, COLUMN, FROM tableName WHERE ORDER BY 
+
+    // 항상 작성되어야하는 부분: SELECT, FROM, WHERE 1 = 1 
+
+    // 조건으로 붙어야할 항목 : WHERE에는 AND COLUMN 조건식 조건
   }
 
   public async createTableQuery(tableName: string, tableData: TableInfo[]) {
