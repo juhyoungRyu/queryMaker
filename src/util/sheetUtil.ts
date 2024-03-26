@@ -1,23 +1,24 @@
-import Base from "../base";
 import sheetJs, { WorkSheet } from "xlsx";
-import logUtil from "./LogUtil";
 
-import { type tableSheet } from "../interface/tableSheet";
+import Base from "../base";
+import LogUtil from "./logUtil";
+
+import type { TableInfo } from "../Interface/table";
 
 interface objSheetData {
-  [sheetName: string]: tableSheet[];
+  [sheetName: string]: TableInfo[];
 }
 
 export default class Sheet extends Base {
   private objSheetData: objSheetData;
-  private logger: logUtil;
+  private Logger: LogUtil;
 
   constructor() {
     super();
     this.objSheetData = {};
-    this.logger = new logUtil("SheetUtil");
+    this.Logger = new LogUtil("SheetUtil");
 
-    this.logger.log("info", "get SheetUtil");
+    this.Logger.log("info", "get SheetUtil");
   }
 
   private clearSheetData(): void {
@@ -41,3 +42,10 @@ export default class Sheet extends Base {
     }
   }
 }
+
+// JSON으로 템플릿.xlsx 파일을 생성하는 코드
+// const wb = sheetJs.utils.book_new();
+// const newWorkSheet = sheetJs.utils.json_to_sheet("JSON Data");
+// sheetJs.utils.book_append_sheet(wb, newWorkSheet, "template");
+
+// sheetJs.writeFile(wb, "path");

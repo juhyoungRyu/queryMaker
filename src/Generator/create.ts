@@ -1,13 +1,13 @@
-import Base from "./base";
-import Logger from "../src/util/LogUtil";
+import Base from "../base";
+import Logger from "../Util/logUtil";
 
 // constant
-import DDLConstant from "./constant/ddl";
+import DDLConstant from "../Constant/ddl";
 
 // type
-import { TableInfo } from "./interface/table";
+import { TableInfo } from "../Interface/table";
 
-export default class Generater extends Base {
+export default class CreateGenerator extends Base {
   private logger: Logger;
 
   constructor() {
@@ -79,10 +79,14 @@ export default class Generater extends Base {
         row.sNULL = DDLConstant.IS_NULL;
       }
 
-      arrColumnQuery.push(`${row.Field} ${row.sType ? row.sType : row.Type} ${row.sNULL}`);
+      arrColumnQuery.push(
+        `${row.Field} ${row.sType ? row.sType : row.Type} ${row.sNULL}`
+      );
     });
 
-    arrCreateQuery.push(arrColumnQuery.join(DDLConstant.CREATE_TABLE_TEMPLATE.SEPARATOR));
+    arrCreateQuery.push(
+      arrColumnQuery.join(DDLConstant.CREATE_TABLE_TEMPLATE.SEPARATOR)
+    );
     arrCreateQuery.push(DDLConstant.CREATE_TABLE_TEMPLATE.END);
 
     return arrCreateQuery.join("");

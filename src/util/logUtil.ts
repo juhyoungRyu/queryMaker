@@ -1,13 +1,5 @@
 import Base from "../base";
 
-const TYPE = {
-  error: "ERROR",
-  info: "INFO",
-  success: "SUCCESS",
-  fail: "FAIL",
-  line: "",
-};
-
 export default class Logger extends Base {
   private template: string;
 
@@ -16,15 +8,24 @@ export default class Logger extends Base {
     this.template = `%timestamp% [${caller}][%type%] %message%`;
   }
 
+  private TYPE = {
+    error: "ERROR",
+    info: "INFO",
+    success: "SUCCESS",
+    start: "START",
+    fail: "FAIL",
+    line: "",
+  };
+
   private getTime(): string {
     return this.Moment().format("YYYY/MM/DD HH:mm:ss");
   }
 
-  public log(type: keyof typeof TYPE, message?: any): void {
+  public log(type: keyof typeof this.TYPE, message?: any): void {
     let msg = this._.cloneDeep(this.template);
 
     msg = msg
-      .replace(/%type%/gm, TYPE[type])
+      .replace(/%type%/gm, this.TYPE[type])
       .replace(/%timestamp%/gm, this.getTime())
       .replace(/%message%/gm, message);
 

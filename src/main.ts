@@ -5,11 +5,11 @@ import Koa_CORS from "@koa/cors";
 import Koa_BodyParser from "koa-bodyparser";
 
 // QueryMaker
-import Generater from "./generater";
+import Generater from "./Generator/create";
 
 // util
-import LogUtil from "./util/LogUtil";
-import { TableInfo } from "./interface/table";
+import LogUtil from "./Util/logUtil";
+import { TableInfo } from "./Interface/table";
 
 // init
 const QueryMaker = new Generater();
@@ -19,7 +19,12 @@ const Router = new Koa_Router();
 
 // Post
 Router.post("/createTable", (ctx) => {
-  const body = ctx.request?.body as undefined | { [tableName: string]: TableInfo[] };
+  Logger.log("line");
+  Logger.log("start", "createTable");
+
+  const body = ctx.request?.body as
+    | undefined
+    | { [tableName: string]: TableInfo[] };
 
   if (body === undefined) {
     ctx.response.status = 400;
@@ -33,6 +38,8 @@ Router.post("/createTable", (ctx) => {
   arrTableName.forEach(async (tableName) => {
     console.log(await QueryMaker.createTableQuery(tableName, body[tableName]));
   });
+
+  Logger.log("line");
 });
 // Post
 Router.post("/createSelectQuery", (ctx) => {

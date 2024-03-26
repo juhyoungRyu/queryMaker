@@ -1,0 +1,146 @@
+{
+  "qt_key_maser": [
+    {
+      "Field": "SYS_ID",
+      "Type": "VARCHAR",
+      "Length": 32,
+      "NULL": 0,
+      "Key": "PK",
+      "Comments": "PK"
+    },
+    {
+      "Field": "SYS_CREATE_BY",
+      "Type": "VARCHAR",
+      "Length": 32,
+      "NULL": 1,
+      "Comments": "최초 생성자"
+    },
+    {
+      "Field": "SYS_MODIFY_BY",
+      "Type": "VARCHAR",
+      "Length": 32,
+      "NULL": 1,
+      "Comments": "최종 수정자"
+    },
+    {
+      "Field": "SYS_CREATE_DATE",
+      "Type": "DATETIME",
+      "Length": "N/A",
+      "NULL": 1,
+      "Comments": "생성일시"
+    },
+    {
+      "Field": "SYS_MODIFY_DATE",
+      "Type": "DATETIME",
+      "Length": "N/A",
+      "NULL": 1,
+      "Comments": "최종 수정일시"
+    },
+    {
+      "Field": "SYS_TYPE",
+      "Type": "VARCHAR",
+      "Length": 32,
+      "NULL": 1,
+      "Comments": "-"
+    },
+    {
+      "Field": "SYS_FLAG",
+      "Type": "CHAR",
+      "Length": 1,
+      "NULL": 1,
+      "Comments": "활성여부\n(활성 : 1 / 비활성 : 0)"
+    },
+    {
+      "Field": "TL_APL_ID",
+      "Type": "VARCHAR",
+      "Length": 32,
+      "NULL": 1,
+      "Comments": "어플리케이션 아이디"
+    },
+    {
+      "Field": "TL_ACC_ID",
+      "Type": "VARCHAR",
+      "Length": 32,
+      "NULL": 1,
+      "Comments": "어카운트 아이디"
+    },
+    {
+      "Field": "FK_DTS_ID",
+      "Type": "VARCHAR",
+      "Length": 32,
+      "NULL": 1,
+      "Key": "FK",
+      "Comments": "(FK) DataSource SYS_ID"
+    },
+    {
+      "Field": "KEY_CODE",
+      "Type": "VARCHAR",
+      "Length": 250,
+      "NULL": 1,
+      "Comments": "암호화 키 명"
+    },
+    {
+      "Field": "KEY_DESC",
+      "Type": "VARCHAR",
+      "Length": 250,
+      "NULL": 1,
+      "Comments": "암호화 키 설명"
+    },
+    {
+      "Field": "ENC_TYPE",
+      "Type": "VARCHAR",
+      "Length": 32,
+      "NULL": 1,
+      "Comments": "암호화 타입"
+    },
+    {
+      "Field": "ENC_ALGO",
+      "Type": "VARCHAR",
+      "Length": 32,
+      "NULL": 1,
+      "Comments": "암호화 알고리즘"
+    },
+    {
+      "Field": "ENC_KEY",
+      "Type": "VARCHAR",
+      "Length": 4000,
+      "NULL": 1,
+      "Comments": "대칭키"
+    },
+    {
+      "Field": "ENC_DATA_KEY",
+      "Type": "VARCHAR",
+      "Length": 4000,
+      "NULL": 1,
+      "Comments": "kms data key"
+    },
+    {
+      "Field": "KMS_ALIAS",
+      "Type": "VARCHAR",
+      "Length": 32,
+      "NULL": 1,
+      "Comments": "KMS Alias"
+    },
+    {
+      "Field": "MNG_TYPE",
+      "Type": "VARCHAR",
+      "Length": 32,
+      "NULL": 1,
+      "Comments": "system / application / external"
+    },
+    {
+      "Field": "ENV_CODE",
+      "Type": "VARCHAR",
+      "Length": 10,
+      "NULL": 1,
+      "Comments": "암호화 환경 코드 / provisioning..."
+    },
+    {
+      "Field": "AC_FLAG",
+      "Type": "CHAR",
+      "Length": 1,
+      "NULL": 1,
+      "Comments": "admin console"
+    }
+  ]
+}
