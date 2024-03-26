@@ -36,6 +36,7 @@ Router.post("/createTable", (ctx) => {
 });
 // Post
 Router.post("/createSelectQuery", (ctx) => {
+  // response, error model 
   const body = ctx.request?.body as undefined | { [tableName: string]: TableInfo[] };
 
   if (body === undefined) {
