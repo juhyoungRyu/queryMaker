@@ -5,14 +5,14 @@ import Koa_CORS from "@koa/cors";
 import Koa_BodyParser from "koa-bodyparser";
 
 // QueryMaker
-import Generater from "./Generator/create";
+import Generator from "./Generator/Generator";
 
 // util
 import LogUtil from "./Util/logUtil";
 import { TableInfo } from "./Interface/table";
 
 // init
-const QueryMaker = new Generater();
+const QueryMaker = new Generator();
 const Logger = new LogUtil("main");
 const Server = new Koa();
 const Router = new Koa_Router();
@@ -26,12 +26,13 @@ Router.get("/", (ctx) => {
 Router.post("/createTable", async (ctx) => {
   Logger.log("line");
   Logger.log("start", "createTable");
-  Logger.log("info", `body : ${JSON.stringify(ctx.request.body)}`);
 
+  // 이후 controller로 이관 후 유효성 검사 로직 추가
   const body = ctx.request?.body as
     | undefined
     | { [tableName: string]: TableInfo[] };
 
+  //TODO: 이후 모델로 변경
   if (body === undefined) {
     ctx.response.status = 400;
     ctx.response.message = "Data Not Found";
@@ -39,15 +40,20 @@ Router.post("/createTable", async (ctx) => {
     return;
   }
 
+  //TODO: 이후 각 함수 밑으로 이관
   let query: string = "";
 
   const arrTableName = Object.keys(body);
 
   for (let i = 0, maxLength = arrTableName.length; i < maxLength; i++) {
     const tableName = arrTableName[i];
-    query = await QueryMaker.createTableQuery(tableName, body[tableName]);
+    query = await QueryMaker.Create.createTableQuery(
+      tableName,
+      body[tableName]
+    );
   }
 
+  //TODO: 이후 모델로 변경
   ctx.response.status = 200;
   ctx.response.message = query;
 
@@ -55,18 +61,10 @@ Router.post("/createTable", async (ctx) => {
   Logger.log("line");
 });
 // Post
-Router.post("/createSelectQuery", (ctx) => {
-  // response, error model 
-  const body = ctx.request?.body as undefined | { [tableName: string]: TableInfo[] };
+Router.post("/createSelectQuery", async (ctx) => {
+  //TODO: 이후 controller로 이관 후 유효성 검사 로직 추가
 
-  if (body === undefined) {
-    ctx.response.status = 400;
-    ctx.response.message = "Data Not Found";
-
-    return;
-  }
-  
-  const result = QueryMaker.selectQeury(ctx)
+  const result = await QueryMaker.Select.selectQeury(ctx.request);
 });
 // Server Module
 Server.use(Koa_CORS());
