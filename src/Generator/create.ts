@@ -12,7 +12,7 @@ export default class CreateGenerator extends Base {
 
   constructor() {
     super();
-    this.logger = new Logger("generater");
+    this.logger = new Logger("create");
   }
 
   public async createTableQuery(tableName: string, tableData: TableInfo[]) {

@@ -7,51 +7,61 @@ import DDLConstant from "../Constant/ddl";
 // type
 import { TableInfo } from "../Interface/table";
 
-export default class CreateGenerator extends Base {
+export default class SelectGenerator extends Base {
   private logger: Logger;
 
   constructor() {
     super();
-    this.logger = new Logger("generater");
+    this.logger = new Logger("select");
   }
 
   // 필수 값 확인 user 정보, query type, table명, column명
   public async selectQeury(event: any) {
-    const body: any = event.body 
+    const body: any = event.body;
 
-    if(this._.isEmpty(body.table) || !body.table){ // table name 
-        body.response.status = 401;
-        body.response.message = "table";
-        return;
+    if (this._.isEmpty(body.table) || !body.table) {
+      // table name
+      body.response.status = 401;
+      body.response.message = "table";
+      return;
     }
 
-    if(this._.isEmpty(body.column)|| body.column){ // type 
-        body.response.status = 401;
-        body.response.message = "column";
-        return;
+    if (this._.isEmpty(body.column) || body.column) {
+      // type
+      body.response.status = 401;
+      body.response.message = "column";
+      return;
     }
     const columnsArray = Object.entries(body.column).map(([key, value]) => {
-        return `${key} AS ${value}`;
+      return `${key} AS ${value}`;
     });
-    const columnString = columnsArray.join(', ');
+    const columnString = columnsArray.join(", ");
 
     // WHERE 조건 처리
-    let whereConditions = body.where.map(({ column, operator, value }: any) => 
-        typeof value === 'number' ? `${column} ${operator} ${value}` : `${column} ${operator} '${value}'`
-    ).join(' AND ');
+    let whereConditions = body.where
+      .map(({ column, operator, value }: any) =>
+        typeof value === "number"
+          ? `${column} ${operator} ${value}`
+          : `${column} ${operator} '${value}'`
+      )
+      .join(" AND ");
 
-    if(whereConditions) {
-        whereConditions = "WHERE " + whereConditions;
+    if (whereConditions) {
+      whereConditions = "WHERE " + whereConditions;
     } else {
-        whereConditions = "";
+      whereConditions = "";
     }
 
     // SORT 조건 처리
-    const orderBy = body.sort.map(({ column, order }: any) => `${column} ${order.toUpperCase()}`).join(', ');
+    const orderBy = body.sort
+      .map(({ column, order }: any) => `${column} ${order.toUpperCase()}`)
+      .join(", ");
 
     // 최종 SQL 쿼리 문자열 생성
-    const result = `SELECT ${columnString} FROM ${body.table} ${whereConditions} ${orderBy ? 'ORDER BY ' + orderBy : ''}`;
+    const result = `SELECT ${columnString} FROM ${
+      body.table
+    } ${whereConditions} ${orderBy ? "ORDER BY " + orderBy : ""}`;
 
-    return result
+    return result;
   }
 }

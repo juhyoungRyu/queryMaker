@@ -5,14 +5,16 @@ import Koa_CORS from "@koa/cors";
 import Koa_BodyParser from "koa-bodyparser";
 
 // QueryMaker
-import Generater from "./Generator/create";
+import Create from "./Generator/create";
+import Select from "./Generator/select";
 
 // util
 import LogUtil from "./Util/logUtil";
 import { TableInfo } from "./Interface/table";
 
 // init
-const QueryMaker = new Generater();
+const QueryMakerCreate = new Create();
+const QueryMakerSelect = new Select();
 const Logger = new LogUtil("main");
 const Server = new Koa();
 const Router = new Koa_Router();
@@ -45,7 +47,7 @@ Router.post("/createTable", async (ctx) => {
 
   for (let i = 0, maxLength = arrTableName.length; i < maxLength; i++) {
     const tableName = arrTableName[i];
-    query = await QueryMaker.createTableQuery(tableName, body[tableName]);
+    query = await QueryMakerCreate.createTableQuery(tableName, body[tableName]);
   }
 
   ctx.response.status = 200;
@@ -55,9 +57,11 @@ Router.post("/createTable", async (ctx) => {
   Logger.log("line");
 });
 // Post
-Router.post("/createSelectQuery", (ctx) => {
-  // response, error model 
-  const body = ctx.request?.body as undefined | { [tableName: string]: TableInfo[] };
+Router.post("/createSelectQuery", async (ctx) => {
+  // response, error model
+  const body = ctx.request?.body as
+    | undefined
+    | { [tableName: string]: TableInfo[] };
 
   if (body === undefined) {
     ctx.response.status = 400;
@@ -65,8 +69,8 @@ Router.post("/createSelectQuery", (ctx) => {
 
     return;
   }
-  
-  const result = QueryMaker.selectQeury(ctx)
+
+  const result = await QueryMakerSelect.selectQeury(ctx);
 });
 // Server Module
 Server.use(Koa_CORS());
