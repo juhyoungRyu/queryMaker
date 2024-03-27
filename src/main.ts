@@ -4,7 +4,7 @@ import Koa_CORS from "@koa/cors";
 import Koa_BodyParser from "koa-bodyparser";
 import SystemRouter from "./Router/Router";
 // util
-import LogUtil from "./Util/logUtil";
+import LogUtil from "./util/logUtil";
 
 // init
 const Logger = new LogUtil("main");

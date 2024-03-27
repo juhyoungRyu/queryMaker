@@ -1,8 +1,8 @@
 import Generator from "../Generator/Generator";
-import Logger2 from "../Util/logUtil";
+import Logger2 from "../util/logUtil";
 import Base from "../base";
 import Koa_Router from "@koa/router";
-import { TableInfo } from "../Interface/table";
+import { SelectInfo, TableInfo } from "../Interface/table";
 
 const QueryMaker = new Generator();
 const Logger = new Logger2("router");
@@ -64,8 +64,12 @@ export default class SystemRouter extends Base {
     // Post
     this.Router.post("/createSelectQuery", async (ctx) => {
       //TODO: 이후 controller로 이관 후 유효성 검사 로직 추가
+      // 이후 controller로 이관 후 유효성 검사 로직 추가
+      const body = ctx.request?.body as | SelectInfo ;
 
-      const result = await QueryMaker.Select.selectQeury(ctx.request);
+      const result = await QueryMaker.Select.selectQeury(body);
+
+      return result
     });
   }
 }
