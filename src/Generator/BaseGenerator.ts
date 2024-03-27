@@ -1,5 +1,5 @@
-import Base from "../base";
-import Logger from "../Util/logUtil";
+import Base from "../Base";
+import Logger from "../Util/LogUtil";
 import type { Request, Response } from "koa";
 
 export default class CreateGenerator extends Base {

@@ -1,32 +1,33 @@
-import Generator from "../Generator/Generator";
-import Logger2 from "../Util/logUtil";
-import Base from "../base";
+import Base from "../Base";
 import Koa_Router from "@koa/router";
-import { TableInfo } from "../Interface/table";
+import Logger from "../Util/LogUtil";
+
+import Generator from "../Generator/Generator";
+import type { TableInfo } from "../Interface/Table";
 
 const QueryMaker = new Generator();
-const Logger = new Logger2("router");
 
 export default class SystemRouter extends Base {
-  public Router: Koa_Router;
+  public API: Koa_Router;
+  public Logger: Logger;
 
   constructor() {
     super();
-    this.Router = new Koa_Router();
+    this.API = new Koa_Router();
+    this.Logger = new Logger("SystemRouter");
   }
-
   public Get() {
     // Get
-    this.Router.get("/", (ctx) => {
+    this.API.get("/", (ctx) => {
       ctx.response.body = "test";
     });
   }
 
   public Post() {
     // Post
-    this.Router.post("/createTable", async (ctx) => {
-      Logger.log("line");
-      Logger.log("start", "createTable");
+    this.API.post("/createTable", async (ctx) => {
+      this.Logger.log("line");
+      this.Logger.log("start", "createTable");
 
       // 이후 controller로 이관 후 유효성 검사 로직 추가
       const body = ctx.request?.body as
@@ -58,11 +59,11 @@ export default class SystemRouter extends Base {
       ctx.response.status = 200;
       ctx.response.message = query;
 
-      Logger.log("success", query);
-      Logger.log("line");
+      this.Logger.log("success", query);
+      this.Logger.log("line");
     });
     // Post
-    this.Router.post("/createSelectQuery", async (ctx) => {
+    this.API.post("/createSelectQuery", async (ctx) => {
       //TODO: 이후 controller로 이관 후 유효성 검사 로직 추가
 
       const result = await QueryMaker.Select.selectQeury(ctx.request);

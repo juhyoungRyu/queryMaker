@@ -1,10 +1,10 @@
 interface err {
-    errorCode : number,
-    errorMessage: string
+  errorCode: number;
+  errorMessage: string;
 }
 
 export interface res {
-    success : boolean,
-    error : err,
-    data: string
+  success: boolean;
+  error: err;
+  data: string;
 }

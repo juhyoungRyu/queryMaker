@@ -1,15 +1,15 @@
 import sheetJs, { WorkSheet } from "xlsx";
 
-import Base from "../base";
-import LogUtil from "./logUtil";
+import Base from "../Base";
+import LogUtil from "./LogUtil";
 
-import type { TableInfo } from "../Interface/table";
+import type { TableInfo } from "../Interface/Table";
 
 interface objSheetData {
   [sheetName: string]: TableInfo[];
 }
 
-export default class Sheet extends Base {
+export default class SheetUtil extends Base {
   private objSheetData: objSheetData;
   private Logger: LogUtil;
 

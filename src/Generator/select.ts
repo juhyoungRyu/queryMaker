@@ -2,7 +2,7 @@ import BaseGenerator from "./BaseGenerator";
 
 export default class SelectGenerator extends BaseGenerator {
   constructor() {
-    super("select");
+    super("SelectGenerator");
   }
 
   // 필수 값 확인 user 정보, query type, table명, column명

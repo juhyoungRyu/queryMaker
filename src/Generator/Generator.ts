@@ -1,4 +1,4 @@
-import Base from "../base";
+import Base from "../Base";
 import CreateGenerator from "./Create";
 import SelectGenerator from "./Select";
 
