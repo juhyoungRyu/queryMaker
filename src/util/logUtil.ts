@@ -1,4 +1,4 @@
-import Base from "../base";
+import Base from "../Base";
 
 export default class Logger extends Base {
   private template: string;

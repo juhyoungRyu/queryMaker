@@ -1,81 +1,21 @@
 // Koa
 import Koa from "koa";
-import Koa_Router from "@koa/router";
 import Koa_CORS from "@koa/cors";
 import Koa_BodyParser from "koa-bodyparser";
+import SystemRouter from "./Router/Router";
 
-// QueryMaker
-import Create from "./Generator/create";
-import Select from "./Generator/select";
-
-// util
-import LogUtil from "./Util/logUtil";
-import { TableInfo } from "./Interface/table";
+// Util
+import LogUtil from "./Util/LogUtil";
 
 // init
-const QueryMakerCreate = new Create();
-const QueryMakerSelect = new Select();
-const Logger = new LogUtil("main");
 const Server = new Koa();
-const Router = new Koa_Router();
+const Router = new SystemRouter();
+const Logger = new LogUtil("main");
 
-// Get
-Router.get("/", (ctx) => {
-  ctx.response.body = "test";
-});
-
-// Post
-Router.post("/createTable", async (ctx) => {
-  Logger.log("line");
-  Logger.log("start", "createTable");
-  Logger.log("info", `body : ${JSON.stringify(ctx.request.body)}`);
-
-  const body = ctx.request?.body as
-    | undefined
-    | { [tableName: string]: TableInfo[] };
-
-  if (body === undefined) {
-    ctx.response.status = 400;
-    ctx.response.message = "Data Not Found";
-
-    return;
-  }
-
-  let query: string = "";
-
-  const arrTableName = Object.keys(body);
-
-  for (let i = 0, maxLength = arrTableName.length; i < maxLength; i++) {
-    const tableName = arrTableName[i];
-    query = await QueryMakerCreate.createTableQuery(tableName, body[tableName]);
-  }
-
-  ctx.response.status = 200;
-  ctx.response.message = query;
-
-  Logger.log("success", query);
-  Logger.log("line");
-});
-// Post
-Router.post("/createSelectQuery", async (ctx) => {
-  // response, error model
-  const body = ctx.request?.body as
-    | undefined
-    | { [tableName: string]: TableInfo[] };
-
-  if (body === undefined) {
-    ctx.response.status = 400;
-    ctx.response.message = "Data Not Found";
-
-    return;
-  }
-
-  const result = await QueryMakerSelect.selectQeury(ctx);
-});
 // Server Module
 Server.use(Koa_CORS());
 Server.use(Koa_BodyParser());
-Server.use(Router.routes()).use(Router.allowedMethods());
+Server.use(Router.API.routes()).use(Router.API.allowedMethods());
 
 // Server Start
 Server.listen(3001, () => Logger.log("info", "🚀 Server Start 🚀"));

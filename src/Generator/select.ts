@@ -1,23 +1,13 @@
-import Base from "../base";
-import Logger from "../Util/logUtil";
+import BaseGenerator from "./BaseGenerator";
 
-// constant
-import DDLConstant from "../Constant/ddl";
-
-// type
-import { TableInfo } from "../Interface/table";
-
-export default class SelectGenerator extends Base {
-  private logger: Logger;
-
+export default class SelectGenerator extends BaseGenerator {
   constructor() {
-    super();
-    this.logger = new Logger("select");
+    super("SelectGenerator");
   }
 
   // 필수 값 확인 user 정보, query type, table명, column명
-  public async selectQeury(event: any) {
-    const body: any = event.body;
+  public async selectQeury(Request: typeof this.Request) {
+    const body = Request.body;
 
     if (this._.isEmpty(body.table) || !body.table) {
       // table name

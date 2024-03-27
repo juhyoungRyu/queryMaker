@@ -1,18 +1,15 @@
-import Base from "../base";
-import Logger from "../Util/logUtil";
+// base
+import BaseGenerator from "./BaseGenerator";
 
 // constant
-import DDLConstant from "../Constant/ddl";
+import DDLConstant from "../Constant/DDL";
 
 // type
-import { TableInfo } from "../Interface/table";
+import { TableInfo } from "../Interface/Table";
 
-export default class CreateGenerator extends Base {
-  private logger: Logger;
-
+export default class CreateGenerator extends BaseGenerator {
   constructor() {
-    super();
-    this.logger = new Logger("create");
+    super("CreateGenerator");
   }
 
   public async createTableQuery(tableName: string, tableData: TableInfo[]) {
