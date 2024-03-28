@@ -1,4 +1,4 @@
-import Base from "../Base";
+import Base from "../base";
 import Logger from "../Util/LogUtil";
 
 export default class BaseModel extends Base {

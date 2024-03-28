@@ -1,9 +1,9 @@
 import sheetJs, { WorkSheet } from "xlsx";
 
-import Base from "../Base";
-import LogUtil from "./LogUtil";
+import Base from "../base";
+import LogUtil from "./logUtil";
 
-import type { TableInfo } from "../Interface/Table";
+import type { TableInfo } from "../interface/table";
 
 interface objSheetData {
   [sheetName: string]: TableInfo[];

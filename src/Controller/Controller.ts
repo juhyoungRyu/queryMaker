@@ -1,3 +1,3 @@
-import Base from "../Base";
+import Base from "../base";
 
 export default class Controller extends Base {}

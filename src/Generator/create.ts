@@ -2,10 +2,10 @@
 import BaseGenerator from "./BaseGenerator";
 
 // constant
-import DDLConstant from "../Constant/DDL";
+import DDLConstant from "../constant/ddl";
 
 // type
-import { TableInfo } from "../Interface/Table";
+import { TableInfo } from "../interface/table";
 
 export default class CreateGenerator extends BaseGenerator {
   constructor() {

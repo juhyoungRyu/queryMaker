@@ -1,6 +1,6 @@
-import Base from "../Base";
-import CreateGenerator from "./Create";
-import SelectGenerator from "./Select";
+import Base from "../base";
+import CreateGenerator from "./create";
+import SelectGenerator from "./select";
 
 export default class Generator extends Base {
   constructor() {

@@ -1,4 +1,4 @@
-import Base from "../Base";
+import Base from "../base";
 import Koa_Router from "@koa/router";
 import Logger from "../Util/LogUtil";
 
