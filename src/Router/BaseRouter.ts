@@ -14,5 +14,9 @@ export default class Router extends Base {
     super();
     this.API = new Koa_Router();
     this.Logger = new Logger("SystemRouter");
+
+    this.API.get("/", (ctx) => {
+      ctx.response.body = "Query Maker Server";
+    });
   }
 }
