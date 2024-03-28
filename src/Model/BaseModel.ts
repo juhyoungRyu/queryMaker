@@ -1,5 +1,5 @@
 import Base from "../base";
-import Logger from "../Util/LogUtil";
+import Logger from "../util/logUtil";
 
 export default class BaseModel extends Base {
   private Logger: Logger;

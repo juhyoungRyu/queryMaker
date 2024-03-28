@@ -12,23 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const base_1 = __importDefault(require("../base"));
-const logUtil_1 = __importDefault(require("../Util/logUtil"));
+// base
+const BaseGenerator_1 = __importDefault(require("./BaseGenerator"));
 // constant
-const ddl_1 = __importDefault(require("../Constant/ddl"));
-class CreateGenerator extends base_1.default {
+const ddl_1 = __importDefault(require("../constant/ddl"));
+class CreateGenerator extends BaseGenerator_1.default {
     constructor() {
-        super();
-        this.logger = new logUtil_1.default("generater");
-    }
-    // 필수 값 확인 user 정보, query type, table명, column명
-    selectQeury(event) {
-        return __awaiter(this, void 0, void 0, function* () {
-            // select query에 필요한 값에 대해서 확인
-            // 쿼리 생성 확인
-            // gpt 검증 확인 (유료)
-            // example => 생성 후 return시, 파일 생성 후 전달 화면에 뿌려주기
-        });
+        super("CreateGenerator");
     }
     createTableQuery(tableName, tableData) {
         return __awaiter(this, void 0, void 0, function* () {

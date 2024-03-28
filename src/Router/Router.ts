@@ -1,9 +1,9 @@
 import Base from "../base";
 import Koa_Router from "@koa/router";
-import Logger from "../Util/LogUtil";
+import Logger from "../util/logUtil";
 
 import Generator from "../Generator/Generator";
-import type { TableInfo } from "../Interface/Table";
+import type { TableInfo } from "../interface/table";
 
 const QueryMaker = new Generator();
 
