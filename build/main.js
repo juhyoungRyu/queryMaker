@@ -7,13 +7,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const koa_1 = __importDefault(require("koa"));
 const cors_1 = __importDefault(require("@koa/cors"));
 const koa_bodyparser_1 = __importDefault(require("koa-bodyparser"));
-const Router_1 = __importDefault(require("./Router/Router"));
+// Router
+const BaseRouter_1 = __importDefault(require("./Router/BaseRouter"));
+const SelectRouter_1 = require("./Router/SelectRouter");
+const TableRouter_1 = require("./Router/TableRouter");
 // Util
-const LogUtil_1 = __importDefault(require("./Util/LogUtil"));
+const logUtil_1 = __importDefault(require("./util/logUtil"));
 // init
 const Server = new koa_1.default();
-const Router = new Router_1.default();
-const Logger = new LogUtil_1.default("main");
+const Router = new BaseRouter_1.default();
+const Logger = new logUtil_1.default("main");
+Router.API.use("/select", (0, SelectRouter_1.SelectRouter)().API.routes());
+Router.API.use("/table", (0, TableRouter_1.TableRouter)().API.routes());
 // Server Module
 Server.use((0, cors_1.default)());
 Server.use((0, koa_bodyparser_1.default)());
