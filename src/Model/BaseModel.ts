@@ -3,7 +3,7 @@ import Logger from "../util/logUtil";
 
 export default class BaseModel extends Base {
   private Logger: Logger;
-  public ModelName: string;
+  protected ModelName: string;
 
   constructor(name: string) {
     super();

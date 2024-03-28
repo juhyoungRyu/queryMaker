@@ -2,7 +2,11 @@
 import Koa from "koa";
 import Koa_CORS from "@koa/cors";
 import Koa_BodyParser from "koa-bodyparser";
-import SystemRouter, { SelectRouter, TableRouter } from "./Router/Router";
+
+// Router
+import SystemRouter from "./Router/BaseRouter";
+import { SelectRouter } from "./Router/SelectRouter";
+import { TableRouter } from "./Router/TableRouter";
 
 // Util
 import LogUtil from "./util/logUtil";

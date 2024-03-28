@@ -1,26 +1,22 @@
 import BaseModel from "./BaseModel";
+import type { Response } from "../interface/module";
 
-interface Response<T> {
-  statusCode: number;
-  body: T;
-}
+export default class ResponsetModel extends BaseModel {
+  protected statusCode: number;
+  protected response: Response;
 
-export default class ResponsetMode extends BaseModel {
-  private statusCode: number;
-
-  constructor(name: string, code?: number) {
-    super(name);
+  constructor(response: Response, code?: number) {
+    super("ResponsetModel");
+    this.response = response;
     this.statusCode = code ? code : 200;
   }
 
   public createTable(query: string) {
-    const res: Response<{ query: string }> = {
-      statusCode: this.statusCode,
-      body: {
-        query,
-      },
+    this.response.body = {
+      success: this.statusCode === 200 ? true : false,
+      query,
     };
 
-    return res;
+    return this.response;
   }
 }
