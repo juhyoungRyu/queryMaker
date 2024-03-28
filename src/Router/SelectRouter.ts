@@ -1,5 +1,4 @@
 import BaseRouter from "./BaseRouter";
-
 import CoreGenerator from "../Generator/Core";
 
 /**
