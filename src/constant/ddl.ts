@@ -12,7 +12,6 @@ export default class DDLConstant extends Base {
   };
 
   static VARCHAR_TEMPLATE = "VARCHAR(%length%)";
-
   static IS_NULL = "DEFAULT NULL";
   static IS_NOT_NULL = "NOT NULL";
 }
