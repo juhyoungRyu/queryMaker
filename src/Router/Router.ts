@@ -1,8 +1,9 @@
-import Generator from "../Generator/Generator";
+import Generator from "../Generator/Core";
 import Logger2 from "../util/logUtil";
 import Base from "../base";
 import Koa_Router from "@koa/router";
-import { SelectInfo, TableInfo } from "../Interface/table";
+import { TableInfo } from "../interface/table";
+import { SelectInfo } from "../interface/select"
 
 const QueryMaker = new Generator();
 const Logger = new Logger2("router");

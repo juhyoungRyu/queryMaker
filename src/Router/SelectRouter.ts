@@ -14,7 +14,7 @@ export function SelectRouter() {
 
   selectRouter.API.post("/createQuery", async (ctx) => {
     selectRouter.Logger.log("start", "Select Query Create");
-    selectRouter.Logger.log("start", ctx.request?.body)
+    selectRouter.Logger.log("start", JSON.stringify(ctx.request?.body))
     const result = await QueryMaker.selectQeury(ctx.request.body as SelectInfo);
     selectRouter.Logger.log("start", `Select Query Create ${result}`);
     return result;
