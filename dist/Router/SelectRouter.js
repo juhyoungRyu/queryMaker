@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SelectRouter = void 0;
 const BaseRouter_1 = __importDefault(require("./BaseRouter"));
+const Response_1 = __importDefault(require("../Model/Response"));
 const Core_1 = __importDefault(require("../Generator/Core"));
 /**
  * SelectRouter
@@ -25,7 +26,12 @@ function SelectRouter() {
     const selectRouter = new BaseRouter_1.default();
     const QueryMaker = new Core_1.default().Select;
     selectRouter.API.post("/createQuery", (ctx) => __awaiter(this, void 0, void 0, function* () {
-        const result = yield QueryMaker.selectQeury(ctx.request);
+        var _a;
+        selectRouter.Logger.log("start", "Select Query Create");
+        selectRouter.Logger.log("start", JSON.stringify((_a = ctx.request) === null || _a === void 0 ? void 0 : _a.body));
+        const result = yield QueryMaker.selectQeury(ctx.request.body);
+        selectRouter.Logger.log("start", `Select Query Create ===> :: ${result}`);
+        ctx.response = new Response_1.default(ctx.response).createSelect(result);
         return result;
     }));
     return selectRouter;

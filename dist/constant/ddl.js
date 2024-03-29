@@ -14,7 +14,7 @@ DDLConstant.CREATE_TABLE_TEMPLATE = {
     END: ");",
     SEPARATOR: ", ",
 };
-DDLConstant.VARCHAR = "VARCHAR(%length%)";
+DDLConstant.VARCHAR_TEMPLATE = "VARCHAR(%length%)";
 DDLConstant.IS_NULL = "DEFAULT NULL";
 DDLConstant.IS_NOT_NULL = "NOT NULL";
 exports.default = DDLConstant;

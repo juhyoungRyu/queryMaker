@@ -20,45 +20,38 @@ class SelectGenerator extends BaseGenerator_1.default {
     // 필수 값 확인 user 정보, query type, table명, column명
     selectQeury(Request) {
         return __awaiter(this, void 0, void 0, function* () {
-            const body = Request.body;
-            // if (this._.isEmpty(body.table) || !body.table) {
-            //   // table name
-            //   body.response.status = 401;
-            //   body.response.message = "table";
-            //   return;
-            // }
-            // if (this._.isEmpty(body.column) || body.column) {
-            //   // type
-            //   body.response.status = 401;
-            //   body.response.message = "column";
-            //   return;
-            // }
-            // const columnsArray = Object.entries(body.column).map(([key, value]) => {
-            //   return `${key} AS ${value}`;
-            // });
-            // const columnString = columnsArray.join(", ");
-            // // WHERE 조건 처리
-            // let whereConditions = body.where
-            //   .map(({ column, operator, value }: any) =>
-            //     typeof value === "number"
-            //       ? `${column} ${operator} ${value}`
-            //       : `${column} ${operator} '${value}'`
-            //   )
-            //   .join(" AND ");
-            // if (whereConditions) {
-            //   whereConditions = "WHERE " + whereConditions;
-            // } else {
-            //   whereConditions = "";
-            // }
-            // // SORT 조건 처리
-            // const orderBy = body.sort
-            //   .map(({ column, order }: any) => `${column} ${order.toUpperCase()}`)
-            //   .join(", ");
-            // // 최종 SQL 쿼리 문자열 생성
-            // const result = `SELECT ${columnString} FROM ${
-            //   body.table
-            // } ${whereConditions} ${orderBy ? "ORDER BY " + orderBy : ""}`;
-            // return result;
+            const body = Request;
+            this.GenLogger.log("info", JSON.stringify(Request));
+            const columnsArray = Object.entries(body.column).map(([key, value]) => {
+                return `${key} AS ${value}`;
+            });
+            const columnString = columnsArray.join(", ");
+            let result = `SELECT ${columnString} FROM ${body.table} `;
+            // WHERE 절 처리
+            let whereConditions = "";
+            if (Request.where && Request.where.length) {
+                for (let i = 0; i < Request.where.length; i++) {
+                    const { column, operator, condition } = Request.where[i];
+                    if (condition !== undefined) { // condition가 undefined가 아닌 경우에만 처리
+                        const formattedValue = typeof condition === "number" ? condition : `'${condition}'`;
+                        whereConditions += (whereConditions ? " AND " : "") + `${column} ${operator} ${formattedValue}`;
+                    }
+                }
+            }
+            if (whereConditions) {
+                result += ` WHERE ${whereConditions}`;
+            }
+            // SORT 절 처리
+            if (Request.sort && Request.sort.length) {
+                const orderByConditions = Request.sort.reduce((acc, { column, operator = "ASC" }, index) => {
+                    const prefix = index > 0 ? ", " : ""; // 첫 번째 조건이 아닌 경우 "," 추가
+                    return `${acc}${prefix}${column} ${operator}`;
+                }, "");
+                result += ` ORDER BY ${orderByConditions}`;
+            }
+            // 최종 SQL 쿼리 문자열 생성
+            this.GenLogger.log("info", JSON.stringify(result));
+            return result;
         });
     }
 }
