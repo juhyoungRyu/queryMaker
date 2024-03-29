@@ -1,14 +1,16 @@
+
 import BaseGenerator from "./BaseGenerator";
+import { SelectInfo } from "../interface/select";
 
 export default class SelectGenerator extends BaseGenerator {
   constructor() {
-    super("select");
+    super("SelectGenerator");
   }
 
   // 필수 값 확인 user 정보, query type, table명, column명
-  public async selectQeury(Request: typeof this.Request) {
-    const body = Request.body;
-
+  public async selectQeury(Request: SelectInfo ) {
+    const body: any = Request;
+    this.GenLogger.log(body)
     if (this._.isEmpty(body.table) || !body.table) {
       // table name
       body.response.status = 401;
@@ -27,7 +29,7 @@ export default class SelectGenerator extends BaseGenerator {
     });
     const columnString = columnsArray.join(", ");
 
-    // WHERE 조건 처리
+    // // WHERE 조건 처리
     let whereConditions = body.where
       .map(({ column, operator, value }: any) =>
         typeof value === "number"

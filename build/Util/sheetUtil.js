@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const xlsx_1 = __importDefault(require("xlsx"));
 const base_1 = __importDefault(require("../base"));
 const logUtil_1 = __importDefault(require("./logUtil"));
-class Sheet extends base_1.default {
+class SheetUtil extends base_1.default {
     constructor() {
         super();
         this.objSheetData = {};
@@ -30,7 +30,7 @@ class Sheet extends base_1.default {
         }
     }
 }
-exports.default = Sheet;
+exports.default = SheetUtil;
 // JSON으로 템플릿.xlsx 파일을 생성하는 코드
 // const wb = sheetJs.utils.book_new();
 // const newWorkSheet = sheetJs.utils.json_to_sheet("JSON Data");

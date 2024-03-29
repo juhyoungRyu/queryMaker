@@ -2,14 +2,14 @@
 import BaseGenerator from "./BaseGenerator";
 
 // constant
-import DDLConstant from "../Constant/ddl";
+import DDLConstant from "../constant/ddl";
 
 // type
-import { TableInfo } from "../Interface/table";
+import { TableInfo } from "../interface/table";
 
 export default class CreateGenerator extends BaseGenerator {
   constructor() {
-    super("create");
+    super("CreateGenerator");
   }
 
   public async createTableQuery(tableName: string, tableData: TableInfo[]) {

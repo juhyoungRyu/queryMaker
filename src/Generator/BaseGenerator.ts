@@ -1,6 +1,6 @@
 import Base from "../base";
-import Logger from "../Util/logUtil";
-import type { Request, Response } from "koa";
+import Logger from "../util/logUtil";
+import type { Request, Response } from "../interface/module";
 
 export default class CreateGenerator extends Base {
   public Request: Request;

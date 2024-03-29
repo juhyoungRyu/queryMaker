@@ -1,3 +1,4 @@
 import type { RouterContext } from "@koa/router";
+import type { Response, Request } from "koa";
 
-export { RouterContext };
+export { RouterContext, Response, Request };

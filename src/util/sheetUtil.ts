@@ -3,13 +3,13 @@ import sheetJs, { WorkSheet } from "xlsx";
 import Base from "../base";
 import LogUtil from "./logUtil";
 
-import type { TableInfo } from "../Interface/table";
+import type { TableInfo } from "../interface/table";
 
 interface objSheetData {
   [sheetName: string]: TableInfo[];
 }
 
-export default class Sheet extends Base {
+export default class SheetUtil extends Base {
   private objSheetData: objSheetData;
   private Logger: LogUtil;
 

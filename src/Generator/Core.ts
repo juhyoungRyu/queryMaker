@@ -1,8 +1,8 @@
 import Base from "../base";
-import CreateGenerator from "./Create";
-import SelectGenerator from "./Select";
+import CreateGenerator from "./create";
+import SelectGenerator from "./select";
 
-export default class Generator extends Base {
+export default class CoreGenerator extends Base {
   constructor() {
     super();
   }

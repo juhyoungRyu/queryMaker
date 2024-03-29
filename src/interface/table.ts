@@ -9,3 +9,7 @@ export interface TableInfo {
   sNULL?: string;
   Comments: string;
 }
+
+export interface CreateTableRequest {
+  [tableName: string]: TableInfo[];
+}
