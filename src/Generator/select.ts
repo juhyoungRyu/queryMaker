@@ -1,4 +1,3 @@
-
 import BaseGenerator from "./BaseGenerator";
 import { SelectInfo } from "../interface/select";
 
@@ -8,9 +7,10 @@ export default class SelectGenerator extends BaseGenerator {
   }
 
   // 필수 값 확인 user 정보, query type, table명, column명
-  public async selectQeury(Request: SelectInfo ) {
+  public async selectQeury(Request: SelectInfo) {
     const body: any = Request;
-    this.GenLogger.log(body)
+    this.GenLogger.log("info", body);
+
     if (this._.isEmpty(body.table) || !body.table) {
       // table name
       body.response.status = 401;
