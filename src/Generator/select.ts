@@ -1,5 +1,5 @@
 import BaseGenerator from "./BaseGenerator";
-import { SelectInfo } from "../interface/select";
+import { SelectInfo, WhereInfo } from "../interface/select";
 
 export default class SelectGenerator extends BaseGenerator {
   constructor() {
@@ -9,38 +9,41 @@ export default class SelectGenerator extends BaseGenerator {
   // 필수 값 확인 user 정보, query type, table명, column명
   public async selectQeury(Request: SelectInfo) {
     const body: any = Request;
-    this.GenLogger.log("info", body)
-    
+    this.GenLogger.log("info", JSON.stringify(Request))
+
     const columnsArray = Object.entries(body.column).map(([key, value]) => {
       return `${key} AS ${value}`;
     });
     const columnString = columnsArray.join(", ");
+    let result: string = `SELECT ${columnString} FROM ${ body.table } `
 
-    // // WHERE 조건 처리
-    let whereConditions = body.where
-      .map(({ column, operator, value }: any) =>
-        typeof value === "number"
-          ? `${column} ${operator} ${value}`
-          : `${column} ${operator} '${value}'`
-      )
-      .join(" AND ");
+    // WHERE 절 처리
+    let whereConditions = "";
 
-    if (whereConditions) {
-      whereConditions = "WHERE " + whereConditions;
-    } else {
-      whereConditions = "";
+    if (Request.where && Request.where.length) {
+      for (let i = 0; i < Request.where.length; i++) {
+          const { column, operator, condition }: any = Request.where[i];
+          if (condition !== undefined) { // condition가 undefined가 아닌 경우에만 처리
+              const formattedValue = typeof condition === "number" ? condition : `'${condition}'`;
+              whereConditions += (whereConditions ? " AND " : "") + `${column} ${operator} ${formattedValue}`;
+          }
+      }
     }
 
-    // SORT 조건 처리
-    const orderBy = body.sort
-      .map(({ column, order }: any) => `${column} ${order.toUpperCase()}`)
-      .join(", ");
+    if (whereConditions) {
+        result += ` WHERE ${whereConditions}`;
+    }
 
+    // SORT 절 처리
+    if (Request.sort && Request.sort.length) {
+      const orderByConditions = Request.sort.reduce((acc, { column, operator = "ASC" }: any, index) => {
+          const prefix = index > 0 ? ", " : ""; // 첫 번째 조건이 아닌 경우 "," 추가
+          return `${acc}${prefix}${column} ${operator}`;
+      }, "");
+      result += ` ORDER BY ${orderByConditions}`;
+    }
     // 최종 SQL 쿼리 문자열 생성
-    const result = `SELECT ${columnString} FROM ${
-      body.table
-    } ${whereConditions} ${orderBy ? "ORDER BY " + orderBy : ""}`;
-
+    this.GenLogger.log("info", JSON.stringify(result))
     return result;
   }
 }

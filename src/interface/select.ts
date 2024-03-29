@@ -7,3 +7,9 @@ export interface SelectInfo {
     where? : [object],
     sort? : [object],
 }
+
+export interface WhereInfo {
+    column: string,
+    operator: string,
+    condition: string
+}

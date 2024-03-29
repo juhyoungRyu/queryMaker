@@ -18,8 +18,8 @@
     ],
     "sort" : [
         {
-            "columnName" : "",
-            "operator" : ""
+            "columnName" : "DESC",
+            "operator" : "ASC"
         }
     ]
 }
