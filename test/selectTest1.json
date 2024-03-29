@@ -1,25 +1,24 @@
-
 {
-    "Type" : "select",
-    "Lang" : "mysql", 
-    "table" : "tableName",
-    "allFlag" : "boolean",
-    "column": {
-        "NAME" : "name",
-        "AGE" : "age",
-        "DESC" : "description"
-    },
-    "where": [
-        {
-            "column" : "NAME",
-            "operator" : "=",
-            "condition" : "John"
-        }
-    ],
-    "sort" : [
-        {
-            "columnName" : "DESC",
-            "operator" : "ASC"
-        }
-    ]
+  "Type": "select",
+  "Lang": "mysql",
+  "table": "tableName",
+  "allFlag": "boolean",
+  "column": {
+    "NAME": "name",
+    "AGE": "age",
+    "DESC": "description"
+  },
+  "where": [
+    {
+      "column": "NAME",
+      "operator": "=",
+      "condition": "John"
+    }
+  ],
+  "sort": [
+    {
+      "columnName": "DESC",
+      "operator": "ASC"
+    }
+  ]
 }
