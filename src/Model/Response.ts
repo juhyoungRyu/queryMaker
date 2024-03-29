@@ -19,4 +19,12 @@ export default class ResponsetModel extends BaseModel {
 
     return this.response;
   }
+
+  public createSelect(result: string){
+    this.response.body = {
+      success: this.statusCode === 200 ? true : false,
+      result
+    }
+    return this.response;
+  }
 }

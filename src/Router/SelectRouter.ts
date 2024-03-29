@@ -1,4 +1,5 @@
 import BaseRouter from "./BaseRouter";
+import ResponsetMode from "../Model/Response";
 import CoreGenerator from "../Generator/Core";
 import { SelectInfo } from "../interface/select";
 /**
@@ -14,10 +15,9 @@ export function SelectRouter() {
   selectRouter.API.post("/createQuery", async (ctx) => {
     selectRouter.Logger.log("start", "Select Query Create");
     selectRouter.Logger.log("start", JSON.stringify(ctx.request?.body));
-
     const result = await QueryMaker.selectQeury(ctx.request.body as SelectInfo);
-
-    selectRouter.Logger.log("start", `Select Query Create ${result}`);
+    selectRouter.Logger.log("start", `Select Query Create ===> :: ${result}`);
+    ctx.response = new ResponsetMode(ctx.response).createSelect(result);
     return result;
   });
 
