@@ -22,7 +22,8 @@ SystemRouter.use("/table", TableRouter().API.routes());
 // Server Module
 Server.use(
   Koa_CORS({
-    origin: "*",
+    origin: "http://localhost:3000",
+    credentials: true,
   })
 );
 Server.use(Koa_BodyParser());
