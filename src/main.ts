@@ -20,7 +20,11 @@ SystemRouter.use("/select", SelectRouter().API.routes());
 SystemRouter.use("/table", TableRouter().API.routes());
 
 // Server Module
-Server.use(Koa_CORS());
+Server.use(
+  Koa_CORS({
+    origin: "*",
+  })
+);
 Server.use(Koa_BodyParser());
 Server.use(SystemRouter.routes()).use(SystemRouter.allowedMethods());
 
